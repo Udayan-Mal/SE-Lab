@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mermaid Diagrams Collection</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --primary-color: #bb86fc;
+            --secondary-color: #03dac6;
+            --card-bg: #1e1e1e;
+            --border-color: #333;
+            --button-hover: #3700b3;
+            --copy-hover: #018786;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .diagram-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .diagram-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .diagram-card h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .diagram-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .diagram-page {
+            display: none;
+        }
+
+        .diagram-container {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .code-container {
+            background-color: #2d2d2d;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 20px;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--copy-hover);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: var(--button-hover);
+        }
+
+        .instructions {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .instructions h2 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .diagram-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home Page -->
+        <div id="home-page">
+            <header>
+                <h1>Mermaid Diagrams Collection</h1>
+                <p class="subtitle">Click on any diagram to view and copy its Mermaid code</p>
+            </header>
+
+            <div class="diagram-grid">
+                <div class="diagram-card" onclick="showDiagram('er-diagram')">
+                    <div class="diagram-icon">📊</div>
+                    <h2>ER Diagram</h2>
+                    <p>Entity Relationship Diagram for E-commerce</p>
+                </div>
+
+                <div class="diagram-card" onclick="showDiagram('context-dfd')">
+                    <div class="diagram-icon">🔍</div>
+                    <h2>Context-Level DFD</h2>
+                    <p>Data Flow Diagram - Context Level</p>
+                </div>
+
+                <div class="diagram-card" onclick="showDiagram('level1-dfd')">
+                    <div class="diagram-icon">📈</div>
+                    <h2>Level-1 DFD</h2>
+                    <p>Detailed Data Flow Diagram</p>
+                </div>
+
+                <div class="diagram-card" onclick="showDiagram('class-diagram')">
+                    <div class="diagram-icon">🧩</div>
+                    <h2>Class Diagram</h2>
+                    <p>UML Class Diagram for System</p>
+                </div>
+
+                <div class="diagram-card" onclick="showDiagram('activity-diagram')">
+                    <div class="diagram-icon">🔄</div>
+                    <h2>Activity Diagram</h2>
+                    <p>User Flow for Shopping Process</p>
+                </div>
+
+                <div class="diagram-card" onclick="showDiagram('sequence-diagram')">
+                    <div class="diagram-icon">⏩</div>
+                    <h2>Sequence Diagram</h2>
+                    <p>Order Processing Sequence</p>
+                </div>
+
+                <div class="diagram-card" onclick="showDiagram('use-case-diagram')">
+                    <div class="diagram-icon">👥</div>
+                    <h2>Use Case Diagram</h2>
+                    <p>System Use Cases and Actors</p>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h2>How to use these diagrams in Draw.io</h2>
+                <ol>
+                    <li>Click on any diagram above to view it</li>
+                    <li>Click the "Copy Code" button to copy the Mermaid code</li>
+                    <li>Open Draw.io and create a new diagram</li>
+                    <li>Click on "+ More Shapes" at the bottom left</li>
+                    <li>Enable the "Mermaid" option and click "Apply"</li>
+                    <li>Drag the Mermaid shape onto your canvas</li>
+                    <li>Paste the copied code into the Mermaid shape</li>
+                    <li>Click "Insert" to render the diagram</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ER Diagram Page -->
+        <div id="er-diagram" class="diagram-page">
+            <h1>ER Diagram</h1>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD
+                        %% Vertical Layout (Top to Bottom)
+                        CATEGORY[CATEGORY]
+                        PRODUCT[PRODUCT]
+                        CART[CART]
+                        CUSTOMER[CUSTOMER]
+                        ADDRESS[ADDRESS]
+                        ORDER[ORDER]
+                        PAYMENT[PAYMENT]
+                        TRACKING[TRACKING]
+
+                        %% Attributes (Aligned Left)
+                        CATEGORY --> CATID(("category_id (PK)"))
+                        CATEGORY --> CATNAME(("name"))
+
+                        PRODUCT --> PID(("p_id (PK)"))
+                        PRODUCT --> PNAME(("name"))
+                        PRODUCT --> PPRICE(("price"))
+                        PRODUCT -- BELONGS_TO --> CATEGORY
+
+                        CART --> CARTID(("cart_id (PK)"))
+                        CART --> CUSERID(("user_id (FK)"))
+                        CART -- CONTAINS --> PRODUCT
+
+                        CUSTOMER --> CID(("user_id (PK)"))
+                        CUSTOMER --> CNAME(("name"))
+                        CUSTOMER --> CEMAIL(("email"))
+                        CUSTOMER -- OWNS --> CART
+                        CUSTOMER -- HAS --> ADDRESS
+                        CUSTOMER -- PLACES --> ORDER
+
+                        ADDRESS --> AID(("address_id (PK)"))
+                        ADDRESS --> ACOUNTRY(("country"))
+                        ADDRESS --> ASTATE(("state"))
+                        ADDRESS --> ACITY(("city"))
+                        ADDRESS --> APIN(("pin_code"))
+
+                        ORDER --> OID(("order_no (PK)"))
+                        ORDER --> OAMOUNT(("amount"))
+                        ORDER --> ODATE(("date"))
+                        ORDER -- CONTAINS --> PRODUCT
+                        ORDER -- HAS --> PAYMENT
+                        ORDER -- HAS --> TRACKING
+
+                        PAYMENT --> PAYID(("payment_id (PK)"))
+                        PAYMENT --> PAYMETHOD(("method"))
+                        PAYMENT --> PAYAMOUNT(("amount"))
+
+                        TRACKING --> TID(("tracking_id (PK)"))
+                        TRACKING --> TSTATUS(("status"))
+                        TRACKING --> TORDERNO(("order_no (FK)"))
+
+                        %% Relationship Labels
+                        linkStyle 2 stroke:#555,stroke-width:2px,label:N:1
+                        linkStyle 4 stroke:#555,stroke-width:2px,label:M:N
+                        linkStyle 6 stroke:#555,stroke-width:2px,label:1:1
+                        linkStyle 7 stroke:#555,stroke-width:2px,label:1:N
+                        linkStyle 8 stroke:#555,stroke-width:2px,label:1:N
+                        linkStyle 10 stroke:#555,stroke-width:2px,label:1:N
+                        linkStyle 11 stroke:#555,stroke-width:2px,label:1:1
+                        linkStyle 12 stroke:#555,stroke-width:2px,label:1:N
+                </div>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode('er-code')">Copy Code</button>
+                <pre id="er-code">graph TD
+    %% Vertical Layout (Top to Bottom)
+    CATEGORY[CATEGORY]
+    PRODUCT[PRODUCT]
+    CART[CART]
+    CUSTOMER[CUSTOMER]
+    ADDRESS[ADDRESS]
+    ORDER[ORDER]
+    PAYMENT[PAYMENT]
+    TRACKING[TRACKING]
+
+    %% Attributes (Aligned Left)
+    CATEGORY --> CATID(("category_id (PK)"))
+    CATEGORY --> CATNAME(("name"))
+
+    PRODUCT --> PID(("p_id (PK)"))
+    PRODUCT --> PNAME(("name"))
+    PRODUCT --> PPRICE(("price"))
+    PRODUCT -- BELONGS_TO --> CATEGORY
+
+    CART --> CARTID(("cart_id (PK)"))
+    CART --> CUSERID(("user_id (FK)"))
+    CART -- CONTAINS --> PRODUCT
+
+    CUSTOMER --> CID(("user_id (PK)"))
+    CUSTOMER --> CNAME(("name"))
+    CUSTOMER --> CEMAIL(("email"))
+    CUSTOMER -- OWNS --> CART
+    CUSTOMER -- HAS --> ADDRESS
+    CUSTOMER -- PLACES --> ORDER
+
+    ADDRESS --> AID(("address_id (PK)"))
+    ADDRESS --> ACOUNTRY(("country"))
+    ADDRESS --> ASTATE(("state"))
+    ADDRESS --> ACITY(("city"))
+    ADDRESS --> APIN(("pin_code"))
+
+    ORDER --> OID(("order_no (PK)"))
+    ORDER --> OAMOUNT(("amount"))
+    ORDER --> ODATE(("date"))
+    ORDER -- CONTAINS --> PRODUCT
+    ORDER -- HAS --> PAYMENT
+    ORDER -- HAS --> TRACKING
+
+    PAYMENT --> PAYID(("payment_id (PK)"))
+    PAYMENT --> PAYMETHOD(("method"))
+    PAYMENT --> PAYAMOUNT(("amount"))
+
+    TRACKING --> TID(("tracking_id (PK)"))
+    TRACKING --> TSTATUS(("status"))
+    TRACKING --> TORDERNO(("order_no (FK)"))
+
+    %% Relationship Labels
+    linkStyle 2 stroke:#555,stroke-width:2px,label:N:1
+    linkStyle 4 stroke:#555,stroke-width:2px,label:M:N
+    linkStyle 6 stroke:#555,stroke-width:2px,label:1:1
+    linkStyle 7 stroke:#555,stroke-width:2px,label:1:N
+    linkStyle 8 stroke:#555,stroke-width:2px,label:1:N
+    linkStyle 10 stroke:#555,stroke-width:2px,label:1:N
+    linkStyle 11 stroke:#555,stroke-width:2px,label:1:1
+    linkStyle 12 stroke:#555,stroke-width:2px,label:1:N</pre>
+            </div>
+            <a href="#" class="back-btn" onclick="showHomePage()">Back to Diagrams</a>
+        </div>
+
+        <!-- Context-Level DFD Page -->
+        <div id="context-dfd" class="diagram-page">
+            <h1>Context-Level DFD</h1>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD;
+
+                    %% Entities and System
+                    User[USER]
+                    Admin[ADMIN]
+                    System[Online Shopping System]
+
+                    %% Data Flows
+                    User -->|1. Request for Registration| System
+                    User -->|2. Request for Login| System
+                    System -->|3. Response| User
+
+                    Admin -->|4. Login / Manage System| System
+                    System -->|5. Response| Admin
+                </div>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode('context-code')">Copy Code</button>
+                <pre id="context-code">graph TD;
+
+    %% Entities and System
+    User[USER]
+    Admin[ADMIN]
+    System[Online Shopping System]
+
+    %% Data Flows
+    User -->|1. Request for Registration| System
+    User -->|2. Request for Login| System
+    System -->|3. Response| User
+
+    Admin -->|4. Login / Manage System| System
+    System -->|5. Response| Admin</pre>
+            </div>
+            <a href="#" class="back-btn" onclick="showHomePage()">Back to Diagrams</a>
+        </div>
+
+        <!-- Level-1 DFD Page -->
+        <div id="level1-dfd" class="diagram-page">
+            <h1>Level-1 DFD</h1>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD;
+                        %% External Entities
+                        Customer[External Entity: Customer]
+                        Admin[External Entity: Admin]
+                        PaymentGateway[External Entity: Payment Gateway]
+
+                        %% Internal Processes
+                        P1[Process: 1. User Management]
+                        P2[Process: 2. Product Browsing]
+                        P3[Process: 3. Order Processing]
+                        P4[Process: 4. Payment Handling]
+                        P5[Process: 5. Admin Control]
+
+                        %% Data Stores
+                        D1[(User Database)]
+                        D2[(Product Catalog)]
+                        D3[(Order Records)]
+                        D4[(Payment Records)]
+
+                        %% Customer Interactions
+                        Customer -->|Register/Login| P1
+                        P1 --> D1
+                        P1 -->|Profile Info| Customer
+
+                        Customer -->|Browse Products| P2
+                        P2 --> D2
+                        P2 -->|Product Info| Customer
+
+                        Customer -->|Place Order| P3
+                        P3 --> D3
+                        P3 -->|Order Summary| Customer
+
+                        P3 -->|Send Payment| P4
+                        P4 --> PaymentGateway
+                        PaymentGateway -->|Payment Confirmation| P4
+                        P4 --> D4
+                        P4 -->|Invoice/Receipt| Customer
+
+                        %% Admin Interactions
+                        Admin -->|Manage Users/Orders| P5
+                        P5 --> D1
+                        P5 --> D2
+                        P5 --> D3
+                        P5 -->|Reports| Admin
+                </div>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode('level1-code')">Copy Code</button>
+                <pre id="level1-code">graph TD;
+    %% External Entities
+    Customer[External Entity: Customer]
+    Admin[External Entity: Admin]
+    PaymentGateway[External Entity: Payment Gateway]
+
+    %% Internal Processes
+    P1[Process: 1. User Management]
+    P2[Process: 2. Product Browsing]
+    P3[Process: 3. Order Processing]
+    P4[Process: 4. Payment Handling]
+    P5[Process: 5. Admin Control]
+
+    %% Data Stores
+    D1[(User Database)]
+    D2[(Product Catalog)]
+    D3[(Order Records)]
+    D4[(Payment Records)]
+
+    %% Customer Interactions
+    Customer -->|Register/Login| P1
+    P1 --> D1
+    P1 -->|Profile Info| Customer
+
+    Customer -->|Browse Products| P2
+    P2 --> D2
+    P2 -->|Product Info| Customer
+
+    Customer -->|Place Order| P3
+    P3 --> D3
+    P3 -->|Order Summary| Customer
+
+    P3 -->|Send Payment| P4
+    P4 --> PaymentGateway
+    PaymentGateway -->|Payment Confirmation| P4
+    P4 --> D4
+    P4 -->|Invoice/Receipt| Customer
+
+    %% Admin Interactions
+    Admin -->|Manage Users/Orders| P5
+    P5 --> D1
+    P5 --> D2
+    P5 --> D3
+    P5 -->|Reports| Admin</pre>
+            </div>
+            <a href="#" class="back-btn" onclick="showHomePage()">Back to Diagrams</a>
+        </div>
+
+        <!-- Class Diagram Page -->
+        <div id="class-diagram" class="diagram-page">
+            <h1>Class Diagram</h1>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    classDiagram
+                        %% Enumerations
+                        class UserState {
+                            <<enumeration>>
+                            New
+                            Active
+                            Blocked
+                            Banned
+                        }
+
+                        class OrderStatus {
+                            <<enumeration>>
+                            New
+                            Hold
+                            Shipped
+                            Delivered
+                            Closed
+                        }
+
+                        %% Main Classes
+                        class WebUser {
+                            +login_id: String
+                            -password: String
+                            +state: UserState
+                            +authenticate()
+                        }
+
+                        class Customer {
+                            +id: String
+                            +address: Address
+                            +phone: String
+                            +email: String
+                        }
+
+                        class Account {
+                            +id: String
+                            +is_closed: Boolean
+                            +open_date: Date
+                            +closed_date: Date
+                        }
+
+                        class Payment {
+                            +id: String
+                            +paid_date: Date
+                            +total: Float
+                            +details: String
+                            +billing_address: Address
+                        }
+
+                        class Order {
+                            +number: String
+                            +created_date: Date
+                            +ordered_date: Date
+                            +shipped_date: Date
+                            +ship_to: Address
+                            +status: OrderStatus
+                            +total: Float
+                        }
+
+                        class ShoppingCart {
+                            +id: String
+                            +checkout()
+                        }
+
+                        class LineItem {
+                            +quantity: Integer
+                            +price: Float
+                        }
+
+                        class Product {
+                            +id: String
+                            +name: String
+                        }
+
+                        class Supplier {
+                            +id: String
+                        }
+
+                        class Address {
+                            +street: String
+                            +city: String
+                            +zip_code: String
+                        }
+
+                        %% Relationships
+                        WebUser "1" --> "0..1" Customer : "≪extends≫"
+                        Customer "1" --> "1" Account
+                        Customer "1" --> "0..*" Order : "places"
+                        Order "1" --> "1..*" LineItem : "contains"
+                        ShoppingCart "1" --> "1..*" LineItem : "temporary"
+                        LineItem "1" --> "1" Product : "references"
+                        Product "1" --> "1" Supplier : "supplied by"
+                        Order "1" --> "0..1" Payment : "processed via"
+                </div>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode('class-code')">Copy Code</button>
+                <pre id="class-code">classDiagram
+    %% Enumerations
+    class UserState {
+        <<enumeration>>
+        New
+        Active
+        Blocked
+        Banned
+    }
+
+    class OrderStatus {
+        <<enumeration>>
+        New
+        Hold
+        Shipped
+        Delivered
+        Closed
+    }
+
+    %% Main Classes
+    class WebUser {
+        +login_id: String
+        -password: String
+        +state: UserState
+        +authenticate()
+    }
+
+    class Customer {
+        +id: String
+        +address: Address
+        +phone: String
+        +email: String
+    }
+
+    class Account {
+        +id: String
+        +is_closed: Boolean
+        +open_date: Date
+        +closed_date: Date
+    }
+
+    class Payment {
+        +id: String
+        +paid_date: Date
+        +total: Float
+        +details: String
+        +billing_address: Address
+    }
+
+    class Order {
+        +number: String
+        +created_date: Date
+        +ordered_date: Date
+        +shipped_date: Date
+        +ship_to: Address
+        +status: OrderStatus
+        +total: Float
+    }
+
+    class ShoppingCart {
+        +id: String
+        +checkout()
+    }
+
+    class LineItem {
+        +quantity: Integer
+        +price: Float
+    }
+
+    class Product {
+        +id: String
+        +name: String
+    }
+
+    class Supplier {
+        +id: String
+    }
+
+    class Address {
+        +street: String
+        +city: String
+        +zip_code: String
+    }
+
+    %% Relationships
+    WebUser "1" --> "0..1" Customer : "≪extends≫"
+    Customer "1" --> "1" Account
+    Customer "1" --> "0..*" Order : "places"
+    Order "1" --> "1..*" LineItem : "contains"
+    ShoppingCart "1" --> "1..*" LineItem : "temporary"
+    LineItem "1" --> "1" Product : "references"
+    Product "1" --> "1" Supplier : "supplied by"
+    Order "1" --> "0..1" Payment : "processed via"</pre>
+            </div>
+            <a href="#" class="back-btn" onclick="showHomePage()">Back to Diagrams</a>
+        </div>
+
+        <!-- Activity Diagram Page -->
+        <div id="activity-diagram" class="diagram-page">
+            <h1>Activity Diagram</h1>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    flowchart TD
+                        A1([Start])
+                        A2[Search Items]
+                        A3{Item Found?}
+                        A4[View Item]
+                        A5{Made Decision?}
+                        A6[Browse Items]
+                        A7[Add to Shopping Cart]
+                        A8[Check Shopping Cart]
+                        A9{Proceed or View Cart?}
+                        A10[Proceed to Checkout]
+                        A11[View Shopping Cart]
+                        A12{Update Needed?}
+                        A13[Update Shopping Cart]
+                        A14[Done with Shopping?]
+                        A15[More Shopping]
+                        A16([End])
+
+                        %% Flow
+                        A1 --> A2
+                        A2 --> A3
+                        A3 -- No --> A6
+                        A3 -- Yes --> A4
+                        A4 --> A5
+                        A5 -- No --> A6
+                        A5 -- Yes --> A7
+                        A7 --> A8
+                        A8 --> A9
+                        A9 -- Proceed --> A10
+                        A9 -- View Cart --> A11
+                        A11 --> A12
+                        A12 -- Yes --> A13 --> A8
+                        A12 -- No --> A14
+                        A14 -- Yes --> A10
+                        A14 -- No --> A15 --> A6
+                        A10 --> A16
+                </div>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode('activity-code')">Copy Code</button>
+                <pre id="activity-code">flowchart TD
+    A1([Start])
+    A2[Search Items]
+    A3{Item Found?}
+    A4[View Item]
+    A5{Made Decision?}
+    A6[Browse Items]
+    A7[Add to Shopping Cart]
+    A8[Check Shopping Cart]
+    A9{Proceed or View Cart?}
+    A10[Proceed to Checkout]
+    A11[View Shopping Cart]
+    A12{Update Needed?}
+    A13[Update Shopping Cart]
+    A14[Done with Shopping?]
+    A15[More Shopping]
+    A16([End])
+
+    %% Flow
+    A1 --> A2
+    A2 --> A3
+    A3 -- No --> A6
+    A3 -- Yes --> A4
+    A4 --> A5
+    A5 -- No --> A6
+    A5 -- Yes --> A7
+    A7 --> A8
+    A8 --> A9
+    A9 -- Proceed --> A10
+    A9 -- View Cart --> A11
+    A11 --> A12
+    A12 -- Yes --> A13 --> A8
+    A12 -- No --> A14
+    A14 -- Yes --> A10
+    A14 -- No --> A15 --> A6
+    A10 --> A16
+</pre>
+            </div>
+            <a href="#" class="back-btn" onclick="showHomePage()">Back to Diagrams</a>
+        </div>
+
+        <!-- Sequence Diagram Page -->
+        <div id="sequence-diagram" class="diagram-page">
+            <h1>Sequence Diagram</h1>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    sequenceDiagram
+                        participant User
+                        participant Website
+                        participant ProductCatalog
+                        participant ShoppingCart
+                        participant PaymentGateway
+                        participant OrderSystem
+
+                        User->>Website: Browse Products
+                        Website->>ProductCatalog: Request Product List
+                        ProductCatalog-->>Website: Send Product List
+                        Website-->>User: Display Products
+
+                        User->>Website: Select Product
+                        User->>ShoppingCart: Add Product to Cart
+
+                        User->>Website: View Cart
+                        Website->>ShoppingCart: Get Cart Details
+                        ShoppingCart-->>Website: Send Cart Details
+                        Website-->>User: Display Cart
+
+                        User->>Website: Proceed to Checkout
+                        Website->>User: Request Login/Register
+                        User->>Website: Provide Credentials
+                        Website->>User: Login Success
+
+                        User->>Website: Enter Shipping Details
+                        User->>Website: Enter Payment Details
+
+                        Website->>PaymentGateway: Process Payment
+                        PaymentGateway-->>Website: Payment Confirmation
+
+                        Website->>OrderSystem: Place Order
+                        OrderSystem-->>Website: Order Confirmation
+                        Website-->>User: Display Order Confirmation
+                </div>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode('sequence-code')">Copy Code</button>
+                <pre id="sequence-code">sequenceDiagram
+    participant User
+    participant Website
+    participant ProductCatalog
+    participant ShoppingCart
+    participant PaymentGateway
+    participant OrderSystem
+
+    User->>Website: Browse Products
+    Website->>ProductCatalog: Request Product List
+    ProductCatalog-->>Website: Send Product List
+    Website-->>User: Display Products
+
+    User->>Website: Select Product
+    User->>ShoppingCart: Add Product to Cart
+
+    User->>Website: View Cart
+    Website->>ShoppingCart: Get Cart Details
+    ShoppingCart-->>Website: Send Cart Details
+    Website-->>User: Display Cart
+
+    User->>Website: Proceed to Checkout
+    Website->>User: Request Login/Register
+    User->>Website: Provide Credentials
+    Website->>User: Login Success
+
+    User->>Website: Enter Shipping Details
+    User->>Website: Enter Payment Details
+
+    Website->>PaymentGateway: Process Payment
+    PaymentGateway-->>Website: Payment Confirmation
+
+    Website->>OrderSystem: Place Order
+    OrderSystem-->>Website: Order Confirmation
+    Website-->>User: Display Order Confirmation</pre>
+            </div>
+            <a href="#" class="back-btn" onclick="showHomePage()">Back to Diagrams</a>
+        </div>
+
+        <!-- Use Case Diagram Page -->
+        <div id="use-case-diagram" class="diagram-page">
+            <h1>Use Case Diagram</h1>
+            <div class="diagram-container">
+                <div class="mermaid">
+                    graph TD
+
+                        %% Actors
+                        RegisteredCustomer((Registered Customer))
+                        WebCustomer((Web Customer))
+                        NewCustomer((New Customer))
+                        IdentityProvider((Identity Provider))
+                        PayPal((PayPal))
+
+                        %% Use Cases
+                        Auth[<<Service>> Authentication]
+                        Register[Client Register]
+                        Purchase[Purchase]
+                        Checkout[Checkout]
+                        Payment[Payment]
+                        Credit[Credit]
+
+                        %% Relationships
+                        RegisteredCustomer --> Auth
+                        WebCustomer --> Purchase
+                        WebCustomer --> Checkout
+                        WebCustomer --> Payment
+                        NewCustomer --> Register
+                        IdentityProvider --> Auth
+                        PayPal --> Payment
+
+                        %% Includes (representing include relationships visually)
+                        Purchase --> Checkout
+                        Checkout --> Payment
+                        Payment --> Credit
+
+                        %% Subsystem boundary (represented by logical grouping)
+                        subgraph "<<<Subsystem>>> Online Shopping"
+                            Auth
+                            Register
+                            Purchase
+                            Checkout
+                            Payment
+                            Credit
+                        end
+                </div>
+            </div>
+            <div class="code-container">
+                <button class="copy-btn" onclick="copyCode('usecase-code')">Copy Code</button>
+                <pre id="usecase-code">graph TD
+
+    %% Actors
+    RegisteredCustomer((Registered Customer))
+    WebCustomer((Web Customer))
+    NewCustomer((New Customer))
+    IdentityProvider((Identity Provider))
+    PayPal((PayPal))
+
+    %% Use Cases
+    Auth[<<Service>> Authentication]
+    Register[Client Register]
+    Purchase[Purchase]
+    Checkout[Checkout]
+    Payment[Payment]
+    Credit[Credit]
+
+    %% Relationships
+    RegisteredCustomer --> Auth
+    WebCustomer --> Purchase
+    WebCustomer --> Checkout
+    WebCustomer --> Payment
+    NewCustomer --> Register
+    IdentityProvider --> Auth
+    PayPal --> Payment
+
+    %% Includes (representing include relationships visually)
+    Purchase --> Checkout
+    Checkout --> Payment
+    Payment --> Credit
+
+    %% Subsystem boundary (represented by logical grouping)
+    subgraph "<<<Subsystem>>> Online Shopping"
+        Auth
+        Register
+        Purchase
+        Checkout
+        Payment
+        Credit
+    end</pre>
+            </div>
+            <a href="#" class="back-btn" onclick="showHomePage()">Back to Diagrams</a>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: { useMaxWidth: true },
+            sequence: { useMaxWidth: true },
+            classDiagram: { useMaxWidth: true }
+        });
+
+        // Show specific diagram page
+        function showDiagram(diagramId) {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById(diagramId).style.display = 'block';
+            
+            // Force Mermaid to redraw the diagram (sometimes needed for proper rendering)
+            setTimeout(() => {
+                mermaid.init(undefined, document.getElementById(diagramId).querySelector('.mermaid'));
+            }, 100);
+        }
+
+        // Show home page
+        function showHomePage() {
+            document.getElementById('home-page').style.display = 'block';
+            // Hide all diagram pages
+            const diagramPages = document.querySelectorAll('.diagram-page');
+            diagramPages.forEach(page => {
+                page.style.display = 'none';
+            });
+        }
+
+        // Copy code to clipboard
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            const range = document.createRange();
+            range.selectNode(codeElement);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            
+            // Show feedback
+            const copyBtn = event.target;
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
